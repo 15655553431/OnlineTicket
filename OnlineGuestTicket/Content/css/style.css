@@ -1,0 +1,248 @@
+@charset  "utf-8";
+
+*{
+	margin: 0;
+	padding: 0;
+	font-family: "微软雅黑";
+}
+a{
+	text-decoration: none;
+}
+img{
+	border:0;
+}
+input::-webkit-input-placeholder,
+-moz-input-placeholder,
+-ms-,input-placeholder,
+-o-input-placeholder
+ { /* WebKit*/  
+     /*改变placeholder中颜色*/
+}  
+body{
+    background:url(../images/bg.png) no-repeat;
+	background-color: rgb(28, 119, 172);
+	animation:go 100s linear infinite;
+}
+	@keyframes go{
+		
+	0%{
+			background-position:300 0; 
+			}
+			50%{
+				
+				background-position:500px;
+				}
+			
+		100%{
+			background-position:300 0; 
+			}
+		}
+.header{
+	min-width: 1200px;
+	height: 62px;
+	background: #f7f8f8;
+	border-bottom: 1px solid #d6dfea;
+}
+.header .inner{
+	width: 1160px;
+	height: 62px;
+	padding-left:20px;
+	padding-right:20px;
+	margin: 0 auto;
+}
+.header .inner .logo{
+   width: 510px;
+   height: 62px;    
+   float: left;
+}
+.header .inner .logo a{
+	display: block;
+	width: 182px;
+    height: 62px; 
+    
+}
+.header .inner .headlink{
+	float: right;
+	font-size: 12px;
+
+}
+.header .inner .headlink a{
+	font-size: 12px;
+	color: #1d5494;
+	line-height: 62px;
+}
+.middle{
+	min-width:1200px;
+	height:500px;
+	
+	}
+.middle .cont{
+	margin: 50px auto;
+	width: 1200px;
+	height: 400px;
+	position: relative;
+	
+	
+	/*background:linear-gradient(#c0cdd9,#FFF);*//*背景渐变*/
+}
+
+	
+	
+	
+.cont .banner{
+     height: 400px;
+     width: 860px;
+}
+
+
+.loginbox{
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 338px;
+	height: 398px;
+	border-radius: 3px;
+	border:1px solid #d6dfea;
+	background:#FFF;
+	box-shadow:2px 0px 20px 2px #333;
+	
+
+}
+.loginbox .head{
+	height: 50px;
+	width: 234px;
+	border-bottom: 1px solid #c0cdd9;
+	background: #f9fbfe;
+	position: relative;
+	padding: 0 50px;
+}
+.loginbox .head a{
+	color: #999;
+	font-size: 16px;
+	line-height: 50px;
+}
+.loginbox .head a.left{
+    float: left;
+}
+.loginbox .head a.right{
+    float: right;
+}
+.loginbox .head a.sel{
+	color: #333;
+}
+.loginbox .bottomline{
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   width:100px;
+   border-bottom: 1px solid #333;
+   height: 1px;
+}
+.loginbox .ct{
+	width: 306px;
+	height: 300px;
+	margin: 10px auto;
+}
+.loginbox .ct .item{
+	width: 306px;
+	height: 300px;
+	display: none;	
+}
+.loginbox .ct .item img{
+	width: 200px;
+	height: 200px;
+	float: left;
+	margin-top: 10px;
+	margin-left: 50px;
+}
+.loginbox .ct .item p{
+	width: 306px;
+	height: 20px;
+	float: left;
+	text-align: center;
+}
+.loginbox  .logintip{    
+   height: 32px;
+   color: #ff0000;
+   font-size: 12px;
+   margin-left: 15px;
+   line-height: 32px;
+}
+.loginbox .inputbox{
+	width: 260px;
+	height: 24px;
+	border: 1px solid #96a5b4;
+	border-radius: 3px;
+	margin: 0 auto; 
+	margin-bottom: 10px;
+	padding: 8px 10px;
+	position: relative;
+}
+.loginbox .inputbox input{
+   width: 230px;
+   border: none;
+   outline: none;
+}
+.delusername{
+	width: 22px;
+	height: 22px;
+	display: block;
+	position: absolute;
+	top: 9px;
+	right: 9px;
+	background:url(../images/del.png) no-repeat;
+}
+.delusername:hover{
+	background-position: 0 -22px;
+}
+.checkbox{
+	border: 1px solid #96a5b4;
+	width: 16px;
+	height: 16px;
+	margin-left: 15px;
+	display: inline-block;	
+}
+.checkbox input{
+	width: 16px;
+	opacity: 0;
+}
+.checkbox.sel{
+	background: url(../images/icon_ptloginpage_ie61e9c5d.png) no-repeat -60px -17px;
+}
+.outbox{
+	line-height: 16px;
+	font-size: 12px;
+	color: #333;
+	cursor: pointer;
+}
+.submitBtn{
+   width: 284px;
+   height: 40px;
+   margin: 10px auto; 
+   line-height: 40px;
+   text-align: center;
+   
+   
+}
+.submitBtn input{
+	width:284px;
+	height:40px;
+	background: #5a98de;
+	color: #fff;
+	border-radius: 3px;
+	outline:none;
+	border:0px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.foot{
+	width:100%;
+	height:auto;
+	background:#d9e6f7;
+	text-align:center;
+	color:#1d5494;
+   position:fixed;
+	bottom:0px;
+
+	}

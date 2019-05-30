@@ -1,0 +1,108 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>柱状图统计</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 图标统计 <span class="c-gray en">&gt;</span> 每日收入统计 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<div class="f-14 c-error">该数据暂时为模拟数据</div>
+	<div id="container" style="min-width:700px;height:400px"></div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="~/Content/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="~/Content/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="~/Content/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="~/Content/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="~/Content/lib/hcharts/Highcharts/5.0.6/js/highcharts.js"></script>
+<script type="text/javascript" src="~/Content/lib/hcharts/Highcharts/5.0.6/js/modules/exporting.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '每日收入统计'
+            },
+            subtitle: {
+                text: '车站收入和在线收入'
+            },
+            xAxis: {
+                categories: [
+                    '一',
+                    '二',
+                    '三',
+                    '四',
+                    '五',
+                    '六',
+                    '七',
+                    '八',
+                    '九',
+                    '十',
+                    '十一',
+                    '十二'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '人民币 (元)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} 元</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: '线上收入',
+                data: [499, 715, 1064, 1292, 1440, 1760, 1356, 1485, 2164, 1941, 956, 544]
+
+            }, {
+                name: '窗口收入',
+                data: [836, 788, 985, 934, 1060, 845, 1050, 1043, 912, 835, 1066, 923]
+
+            }, {
+                name: '退款金额',
+                data: [148.9, 138.8, 139.3, 141.4, 147.0, 148.3, 159.0, 159.6, 152.4, 165.2, 159.3, 151.2]
+
+            }]
+        });
+    });
+</script>
+</body>
+</html>

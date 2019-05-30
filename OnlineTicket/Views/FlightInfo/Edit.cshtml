@@ -1,0 +1,235 @@
+﻿@model Model.FlightInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="~/lib/html5shiv.js"></script>
+<script type="text/javascript" src="~/lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/lib/layui/css/layui.css"  />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>编辑班车信息</title>
+</head>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+        @Html.HiddenFor(m=>m.ID)
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>班车编号：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="@Model.Number" placeholder="班车编号" id="Number" name="Number">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>车牌号：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="@Model.LicenceTag" placeholder="车牌号码" id="LicenceTag" name="LicenceTag">
+		</div>
+	</div>
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>司机：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="@Model.Driver" placeholder="司机名称" id="Driver" name="Driver">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>汽车类型：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="@Model.BusType" placeholder="汽车类型" id="BusType" name="BusType">
+		</div>
+	</div>
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>每日发车：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="@Model.GoTime.ToString("HH:mm:ss")" placeholder="HH:mm:ss" id="GoTime" name="GoTime">
+		</div>
+	</div>
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>历史(分钟)：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="@Model.OverTime" placeholder="旅途耗时" id="OverTime" name="OverTime">
+		</div>
+	</div>
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>票价：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="@Model.Price" placeholder="元" id="Price" name="Price">
+		</div>
+	</div>
+
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>座位总数：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="@Model.Passengers" placeholder="座位总数" id="passengers" name="passengers">
+		</div>
+	</div>
+
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属路线：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+            <select class="select" id="PathInfoID" name="PathInfoID">
+                <option value="@Model.PathInfoID">
+                    @Model.PathInfo.Number (@Model.PathInfo.Origin -@Model.PathInfo.Destination )
+                </option>
+			</select>
+			<div>
+                <label>路线模糊查询：</label>
+                <input type="text" onchange="getselect();"  class="input-text" style="width:50%" value="" placeholder="" id="path" name="path" >
+            </div>
+		</div>
+	</div>
+	
+	
+	<div class="row cl">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+			<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交更改&nbsp;&nbsp;">
+		</div>
+	</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去--> 
+<script type="text/javascript" src="~/Content/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="~/Content/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="~/Content/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="~/Content/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="~/Content/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="~/Content/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="~/Content/lib/jquery.validation/1.14.0/messages_zh.js"></script> 
+<script type="text/javascript" src="~/Content/lib/layui/layui.js"></script>
+<script type="text/javascript">
+
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#GoTime'
+             , type: 'time'
+        });
+
+    });
+
+    function getselect() {
+        var select = window.document.getElementById("PathInfoID");
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/PathInfo/GetPath",//url
+            data: { Search: $('#path').val() },
+            success: function (data) {
+                select.options.length = 0;
+                for (var i = 0; data.length; i++) {
+                    select.add(new Option(data[i].Number + " (" + data[i].Origin + "-" + data[i].Destination + ")", data[i].ID));
+                }
+            },
+            error: function (data) {
+            }
+
+        });
+    }
+
+    $(function () {
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form-admin-add").validate({
+            rules: {
+                Number: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 20
+                },
+                LicenceTag: {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 20
+                },
+                Driver: {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 16
+                },
+                GoTime: {
+                    required: true,
+                },
+                BusType: {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 16
+                },
+                OverTime: {
+                    required: true,
+                    number: true
+                },
+                Price: {
+                    required: true,
+                    number: true
+                },
+                passengers: {
+                    required: true,
+                    number: true
+                },
+                PathInfoID: {
+                    required: true,
+                    number: true
+                },
+
+            },
+            onkeyup: false,
+            focusCleanup: true,
+            success: "valid",
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    type: 'post',
+                    url: "/FlightInfo/Edit",
+                    success: function (data) {
+                        if (data == "ok") {
+                            layer.msg('修改成功!', { icon: 1, time: 1000 });
+                            setTimeout(function () {  //使用  setTimeout（）方法设定定时2000毫秒
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.location.reload(); // 父页面刷新
+                                parent.$('.btn-refresh').click();
+                                parent.layer.close(index);
+                            }, 1000);
+                        }
+                    },
+                    error: function (XmlHttpRequest, textStatus, errorThrown) {
+                        layer.msg('error!', { icon: 1, time: 1000 });
+                    }
+                });
+                //var index = parent.layer.getFrameIndex(window.name);
+                //parent.location.reload(); // 父页面刷新
+                //parent.$('.btn-refresh').click();
+                //parent.layer.close(index);
+            }
+        });
+    });
+</script> 
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

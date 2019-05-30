@@ -1,0 +1,140 @@
+﻿@model Model.FlightInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="~/lib/html5shiv.js"></script>
+<script type="text/javascript" src="~/lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>购票信息</title>
+</head>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+
+        <input type="hidden" id="FGUID" name="FGUID" value="@Model.GUID"/>
+        <input type="hidden" id="Gotime" name="Gotime" value="@Model.GoTime"/>
+
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><b>请收费：<span class="c-red">@Model.Price 元</span></b></label>
+		<div class="formControls col-xs-8 col-sm-9">
+			@Model.GoTime.ToString("yyyy-MM-dd HH:mm") @Model.Number  (@Model.PathInfo.Origin -@Model.PathInfo.Destination)
+		</div>
+	</div>
+
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>乘车人：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="乘车人姓名" id="Name" name="Name">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>身份证号：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="乘车人身份证号" id="IdCard" name="IdCard">
+		</div>
+	</div>
+    
+	<div class="row cl">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+			<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;立即购票&nbsp;&nbsp;">
+		</div>
+	</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去--> 
+<script type="text/javascript" src="~/Content/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="~/Content/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="~/Content/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="~/Content/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="~/Content/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="~/Content/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="~/Content/lib/jquery.validation/1.14.0/messages_zh.js"></script> 
+<script type="text/javascript">
+
+    
+
+    $(function () {
+
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form-admin-add").validate({
+            rules: {
+                Name: {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 20
+                },
+                IdCard: {
+                    required: true,
+                    minlength: 18,
+                    maxlength: 18
+                },
+
+            },
+            onkeyup: false,
+            focusCleanup: true,
+            success: "valid",
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    type: 'post',
+                    url: "/Ticketinfo/SellTicket",
+                    success: function (data) {
+                        if (data[0] == "err") {
+                            layer.msg(data[1], { icon: 2, time: 1000 });
+                        }
+                        else {
+                            layer.msg('购票成功!座位号：' + data.SeatNumber, { icon: 1, time: 2000 });
+                            //var url = "/Ticketinfo/TicketDetails?id=" + id ;
+                            //layer_show("出票成功！", url, 600, 280);
+
+                            setTimeout(function () {  //使用  setTimeout（）方法设定定时2000毫秒
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.location.reload(); // 父页面刷新
+                                parent.$('.btn-refresh').click();
+                                parent.layer.close(index);
+                            }, 2000);
+                        }
+                    },
+                    error: function (XmlHttpRequest, textStatus, errorThrown) {
+                        layer.msg('error!', { icon: 2, time: 1000 });
+                    }
+                });
+                //var index = parent.layer.getFrameIndex(window.name);
+                //parent.location.reload(); // 父页面刷新
+                //parent.$('.btn-refresh').click();
+                //parent.layer.close(index);
+            }
+        });
+    });
+</script> 
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

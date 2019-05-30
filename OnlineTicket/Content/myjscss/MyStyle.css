@@ -1,0 +1,48 @@
+﻿body {
+}
+
+
+/*分页样式*/
+.page{
+    list-style: none;
+}
+.page>li{
+    float: left;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.page a{
+    float: left;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-decoration:none;  /*超链接无下划线*/
+}
+.page .pageItem{
+    border: solid thin #DDDDDD;
+    margin: 5px;
+}
+.page .pageItemActive{
+    border: solid thin #0099FF;
+    margin: 5px;
+    background-color: #0099FF;
+    color:white;
+}
+.page .pageItem:hover{
+    border: solid thin #0099FF;
+    background-color: #0099FF;
+    color:white;
+}
+.page .pageItemDisable{
+    border: solid thin #DDDDDD;
+    margin: 5px;
+    background-color: #DDDDDD;
+}
+
+.page .pageIteminfo {
+    margin: 5px;
+}
+/*分页样式*/
+
+
+
+

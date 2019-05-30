@@ -1,0 +1,113 @@
+﻿@model Model.Ticketinfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SellTicket</title>
+
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/layer/2.4/layer.js"></script>
+    <style>
+        .Sellbackground {
+        -webkit-box-shadow: #666 0px 0px 10px; 
+        -moz-box-shadow: #666 0px 0px 10px; 
+        box-shadow: #666 0px 0px 10px; 
+        margin:10px auto;
+        width:90%;
+        height:230px;
+        border-radius:16px 16px 16px 16px;
+        background-color:#1E9FFF;
+
+        }
+    </style>
+    
+</head>
+<body style="background-color:#c2c2c2;">
+    <form onSubmit="return beforeSubmit(this);" id="ticketform">
+        @Html.HiddenFor(m=>m.FGUID)
+        @Html.HiddenFor(m=>m.Gotime)
+    <div class="Sellbackground">
+
+        <div style="margin-left:25px;padding-top:10px;">
+            <span style="font-size:20px;font-family:'微软雅黑';">乘车时间：</span>
+            <span style="font-size:20px;font-family:'微软雅黑';">@Model.Gotime.ToString("yyyy年MM月dd日 HH:mm")</span>
+        </div>
+        <div style="margin-left:25px;padding-top:6px;">
+            <span style="font-size:20px;font-family:'微软雅黑';">乘车路线：</span>
+            <span style="font-size:20px;font-family:'微软雅黑';">@Model.Number (@Model.Origin -@Model.Destination)  <span style="color:red;"><b>@Model.Money 元</b></span></span>
+        </div>
+
+    
+        <div style="margin-left:25px;padding-top:10px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">乘车人：</label>
+                <div class="layui-input-block">
+                    <input type="text" value="@Model.Name" style="width:220px;" name="Name" id="Name" required  lay-verify="required" placeholder="真实姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">身份证：</label>
+                <div class="layui-input-block">
+                    <input type="text" value="@Model.IdCard" style="width:220px;" name="IdCard" id="IdCard" required  lay-verify="required" placeholder="真实身份证号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                  <button class="layui-btn" >立即订票</button>    
+                </div>
+          </div>
+        </div>
+
+    </div>
+   </form>
+</body>
+    <script type="text/javascript">
+        function beforeSubmit(form) {
+            if (form.Name.value.length < 2 || form.IdCard.value.length != 18) {
+                layer.msg("姓名或身份证号错误！", { icon: 2, time: 1000 });
+                return false;
+            }
+            else {
+
+                $.ajax({
+                    //几个参数需要注意一下
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "/Home/SellTicket",//url
+                    data: $('#ticketform').serialize(),
+                    success: function (data) {
+                        if (data[0] == "err") {
+                            //弹出错误消息
+                            layer.msg(data[1], { icon: 2, time: 1500 });
+                        }
+                        else {
+                            layer.msg('购票成功!座位号：' + data.SeatNumber, { icon: 1, time: 2000 });
+
+                            setTimeout(function () {  //使用  setTimeout（）方法设定定时2000毫秒
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.location.reload(); // 父页面刷新
+                                parent.layer.close(index);
+                            }, 2000);
+                        }
+                    },
+
+                });
+
+                return false;
+            }
+
+
+
+            
+        }
+    </script>
+</html>

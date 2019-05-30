@@ -1,0 +1,85 @@
+﻿@model Model.PathInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="~/lib/html5shiv.js"></script>
+<script type="text/javascript" src="~/lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>路线信息</title>
+</head>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+        @Html.HiddenFor(m=>m.ID)
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">路线编号：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			@Model.Number
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">起始站：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			@Model.Origin
+		</div>
+	</div>
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">终点站：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			@Model.Destination
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">距离(km)：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			@Model.Distance km
+		</div>
+	</div>
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">耗时(分钟)：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			@Model.Time 分钟
+		</div>
+	</div>
+
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">添加时间：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			@Model.AddDate
+		</div>
+	</div>
+	
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">备注：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			@Model.Other
+			
+		</div>
+	</div>
+	
+	</form>
+</article>
+
+
+</body>
+</html>

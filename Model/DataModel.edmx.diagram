@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b1bed833b4f247d4be729c4e69144a4d" Name="关系图1" >
+        <EntityTypeShape EntityType="DataModel.UserInfo" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="DataModel.PathInfo" Width="1.5" PointX="2.25" PointY="0.5" />
+        <EntityTypeShape EntityType="DataModel.FlightInfo" Width="1.5" PointX="4.125" PointY="0.5" />
+        <AssociationConnector Association="DataModel.PathInfoFlightInfo" />
+        <EntityTypeShape EntityType="DataModel.Ticketinfo" Width="1.5" PointX="6" PointY="0.5" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DataModelStoreContainer">
+    <EntitySet Name="UserInfo" EntityType="DataModel.Store.UserInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PathInfo" EntityType="DataModel.Store.PathInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FlightInfo" EntityType="DataModel.Store.FlightInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ticketinfo" EntityType="DataModel.Store.Ticketinfo" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PathInfoFlightInfo" Association="DataModel.Store.PathInfoFlightInfo">
+      <End Role="PathInfo" EntitySet="PathInfo" />
+      <End Role="FlightInfo" EntitySet="FlightInfo" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GUID" Type="nvarchar" Nullable="true" MaxLength="64" />
+    <Property Name="Login" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Pwd" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="UName" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="SignDate" Type="datetime" Nullable="false" />
+    <Property Name="LoginDate" Type="datetime" Nullable="true" />
+    <Property Name="IdCard" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Phone" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Address" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="Status" Type="int" Nullable="false" DefaultValue="0" />
+    <Property Name="Type" Type="int" Nullable="false" DefaultValue="0" />
+    <Property Name="Other" Type="nvarchar" Nullable="true" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="PathInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Origin" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Destination" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Distance" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="Time" Type="int" Nullable="false" DefaultValue="0" />
+    <Property Name="Number" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Status" Type="int" Nullable="false" DefaultValue="0" />
+    <Property Name="AddDate" Type="datetime" Nullable="false" />
+    <Property Name="Other" Type="nvarchar" Nullable="true" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="FlightInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GUID" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="LicenceTag" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Driver" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Number" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="BusType" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="GoTime" Type="datetime" Nullable="false" />
+    <Property Name="OverTime" Type="int" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" />
+    <Property Name="Passengers" Type="int" Nullable="false" DefaultValue="0" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" DefaultValue="0" />
+    <Property Name="OneDate" Type="datetime" Nullable="false" />
+    <Property Name="PathInfoID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ticketinfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GUID" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="FGUID" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="Origin" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Destination" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Money" Type="decimal" Nullable="false" DefaultValue="0" />
+    <Property Name="Number" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="SeatNumber" Type="int" Nullable="false" />
+    <Property Name="Gotime" Type="datetime" Nullable="false" />
+    <Property Name="Arrtime" Type="datetime" Nullable="false" />
+    <Property Name="Overtime" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IdCard" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="BuyDate" Type="datetime" Nullable="false" />
+    <Property Name="OutDate" Type="datetime" Nullable="false" />
+    <Property Name="BuyName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="BuyIdCard" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="BuyPhone" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="BuyType" Type="int" Nullable="false" />
+    <Property Name="LicenceTag" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Driver" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="BusType" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Passengers" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="PathInfoFlightInfo">
+    <End Role="PathInfo" Type="DataModel.Store.PathInfo" Multiplicity="1" />
+    <End Role="FlightInfo" Type="DataModel.Store.FlightInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PathInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FlightInfo">
+        <PropertyRef Name="PathInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DataModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserInfo" EntityType="DataModel.UserInfo" />
+          <EntitySet Name="PathInfo" EntityType="DataModel.PathInfo" />
+          <EntitySet Name="FlightInfo" EntityType="DataModel.FlightInfo" />
+          <AssociationSet Name="PathInfoFlightInfo" Association="DataModel.PathInfoFlightInfo">
+            <End Role="PathInfo" EntitySet="PathInfo" />
+            <End Role="FlightInfo" EntitySet="FlightInfo" />
+          </AssociationSet>
+          <EntitySet Name="Ticketinfo" EntityType="DataModel.Ticketinfo" />
+        </EntityContainer>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="GUID" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="Login" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Pwd" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="UName" Nullable="false" MaxLength="64" />
+          <Property Type="DateTime" Name="SignDate" Nullable="false" />
+          <Property Type="DateTime" Name="LoginDate" Nullable="true" />
+          <Property Type="String" Name="IdCard" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Status" Nullable="false" DefaultValue="0" />
+          <Property Type="Int32" Name="Type" Nullable="false" DefaultValue="0" />
+          <Property Type="String" Name="Other" Nullable="true" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="PathInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Origin" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Destination" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="Distance" Nullable="false" DefaultValue="0" />
+          <Property Type="Int32" Name="Time" Nullable="false" DefaultValue="0" />
+          <Property Type="String" Name="Number" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Status" Nullable="false" DefaultValue="0" />
+          <Property Type="DateTime" Name="AddDate" Nullable="false" />
+          <Property Type="String" Name="Other" Nullable="true" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="FlightInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="GUID" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="LicenceTag" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Driver" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Number" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="BusType" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="GoTime" Nullable="false" />
+          <Property Type="Int32" Name="OverTime" Nullable="false" />
+          <Property Type="Decimal" Name="Price" Nullable="false" />
+          <Property Type="Int32" Name="Passengers" Nullable="false" DefaultValue="0" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
+          <Property Type="Int32" Name="Type" Nullable="false" DefaultValue="0" />
+          <NavigationProperty Name="PathInfo" Relationship="DataModel.PathInfoFlightInfo" FromRole="FlightInfo" ToRole="PathInfo" />
+          <Property Type="DateTime" Name="OneDate" Nullable="false" />
+          <Property Type="Int32" Name="PathInfoID" Nullable="false" />
+        </EntityType>
+        <Association Name="PathInfoFlightInfo">
+          <End Type="DataModel.PathInfo" Role="PathInfo" Multiplicity="1" />
+          <End Type="DataModel.FlightInfo" Role="FlightInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PathInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FlightInfo">
+              <PropertyRef Name="PathInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Ticketinfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="GUID" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="FGUID" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="Origin" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Destination" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Money" Nullable="false" DefaultValue="0" />
+          <Property Type="String" Name="Number" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="SeatNumber" Nullable="false" />
+          <Property Type="DateTime" Name="Gotime" Nullable="false" />
+          <Property Type="DateTime" Name="Arrtime" Nullable="false" />
+          <Property Type="Int32" Name="Overtime" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="IdCard" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="BuyDate" Nullable="false" />
+          <Property Type="DateTime" Name="OutDate" Nullable="false" />
+          <Property Type="String" Name="BuyName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="BuyIdCard" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="BuyPhone" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="BuyType" Nullable="false" />
+          <Property Type="String" Name="LicenceTag" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Driver" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="BusType" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Passengers" Nullable="false" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="DataModelContainer">
+    <EntitySetMapping Name="UserInfo">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.UserInfo)">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="GUID" ColumnName="GUID" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+          <ScalarProperty Name="UName" ColumnName="UName" />
+          <ScalarProperty Name="SignDate" ColumnName="SignDate" />
+          <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
+          <ScalarProperty Name="IdCard" ColumnName="IdCard" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PathInfo">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.PathInfo)">
+        <MappingFragment StoreEntitySet="PathInfo">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Origin" ColumnName="Origin" />
+          <ScalarProperty Name="Destination" ColumnName="Destination" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FlightInfo">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.FlightInfo)">
+        <MappingFragment StoreEntitySet="FlightInfo">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="GUID" ColumnName="GUID" />
+          <ScalarProperty Name="LicenceTag" ColumnName="LicenceTag" />
+          <ScalarProperty Name="Driver" ColumnName="Driver" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="BusType" ColumnName="BusType" />
+          <ScalarProperty Name="GoTime" ColumnName="GoTime" />
+          <ScalarProperty Name="OverTime" ColumnName="OverTime" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Passengers" ColumnName="Passengers" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="OneDate" ColumnName="OneDate" />
+          <ScalarProperty Name="PathInfoID" ColumnName="PathInfoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ticketinfo">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Ticketinfo)">
+        <MappingFragment StoreEntitySet="Ticketinfo">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="GUID" ColumnName="GUID" />
+          <ScalarProperty Name="FGUID" ColumnName="FGUID" />
+          <ScalarProperty Name="Origin" ColumnName="Origin" />
+          <ScalarProperty Name="Destination" ColumnName="Destination" />
+          <ScalarProperty Name="Money" ColumnName="Money" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="SeatNumber" ColumnName="SeatNumber" />
+          <ScalarProperty Name="Gotime" ColumnName="Gotime" />
+          <ScalarProperty Name="Arrtime" ColumnName="Arrtime" />
+          <ScalarProperty Name="Overtime" ColumnName="Overtime" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IdCard" ColumnName="IdCard" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
+          <ScalarProperty Name="OutDate" ColumnName="OutDate" />
+          <ScalarProperty Name="BuyName" ColumnName="BuyName" />
+          <ScalarProperty Name="BuyIdCard" ColumnName="BuyIdCard" />
+          <ScalarProperty Name="BuyPhone" ColumnName="BuyPhone" />
+          <ScalarProperty Name="BuyType" ColumnName="BuyType" />
+          <ScalarProperty Name="LicenceTag" ColumnName="LicenceTag" />
+          <ScalarProperty Name="Driver" ColumnName="Driver" />
+          <ScalarProperty Name="BusType" ColumnName="BusType" />
+          <ScalarProperty Name="Passengers" ColumnName="Passengers" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

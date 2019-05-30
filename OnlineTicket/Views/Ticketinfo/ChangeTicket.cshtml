@@ -1,0 +1,330 @@
+﻿@model Model.Ticketinfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>车票改签</title>
+
+    <link href="~/Content/lib/layui/css/layui.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/H-ui.admin.css" />
+    <style>
+
+
+    .backdiv {
+        width:100%;
+        height:300px;
+       
+    }
+    .boxdiv {
+        -webkit-box-shadow: #666 0px 0px 10px; 
+        -moz-box-shadow: #666 0px 0px 10px; 
+        box-shadow: #666 0px 0px 10px; 
+        margin:20px auto;
+        width:80%;
+        height:280px;
+        border-radius:16px 16px 16px 16px;
+    }
+    .boxtopdiv {
+        width:100%;
+        height:141px;
+        background-color:#FDE38E;
+        border-radius:16px 16px 0px 0px;
+        border-bottom:2px dashed #fff;
+    }
+    .boxbottomdiv {
+        width:100%;
+        height:139px;
+        background-color:#FFFFFF;
+        border-radius:0px 0px 16px 16px;
+    }
+
+
+</style>
+</head>
+<body>
+    
+    <article class="page-container">
+
+         <form class="form form-horizontal" id="changeform">
+
+            @Html.HiddenFor(m=>m.ID)
+            @Html.HiddenFor(m=>m.FGUID)
+            @Html.HiddenFor(m=>m.GUID)
+
+            <div>
+
+                <div class="row cl">
+
+                    <label class="form-label col-xs-4 col-sm-3"><span>改签日期:</span></label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" placeholder="选择改签日期" id="changedate" name="changedate"  />
+                        
+                    </div>
+                </div>
+
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-3"><span>选择班次:</span></label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <select id="changeflight" name="changeflight" class="input-text">
+                            <option value="">请先选择日期！</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row cl">
+		            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+			            <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交改签申请&nbsp;&nbsp;">
+		            </div>
+	            </div>
+            </div>
+
+        </form>
+   </article>
+
+
+
+
+
+    <div class="backdiv">
+        <div class="boxdiv">
+            <div class="boxtopdiv">
+
+                <div style="width:33.3%;height:139px;float:left;">
+                    <div style="width:100%;height:46px;line-height:46px;text-align:center;">
+                       <span style="font-size:20px;font-family:'微软雅黑';"><b>@Model.Origin</b></span>
+
+                    </div>
+
+                    <div style="width:100%;height:47px;line-height:47px;text-align:center;">
+                        <span style="font-size:22px;font-family:'微软雅黑';"><b>@Model.Gotime.ToString("HH:mm") </b></span>
+                    </div>
+
+                    <div style="width:100%;height:46px;line-height:46px;text-align:center;">
+                        <span style="font-size:16px;font-family:'微软雅黑';">@Model.Gotime.ToString("yyyy年MM月dd日")</span>
+                    </div>
+
+                </div>
+
+                <div style="width:33.3%;height:139px;float:left;">
+                    <div style="width:100%;height:57px;">
+                        <div style="width:100%;height:40px;"></div>
+                       <div style="width:100%;font-size:17px;font-family:'微软雅黑';line-height:17px;text-align:center;">@Model.Number</div>
+
+                    </div>
+
+                    <div style="width:100%;height:25px;line-height:25px;text-align:center;">
+                        <span style="font-size:22px;font-family:'微软雅黑';">——></span>
+                    </div>
+
+                    <div style="width:100%;height:20px;line-height:20px;text-align:center;">
+                        <span style="font-size:16px;font-family:'微软雅黑';">@Model.Overtime 分钟</span>
+                    </div>
+                </div>
+
+                <div style="width:33.3%;height:139px;float:right;">
+                    <div style="width:100%;height:46px;line-height:46px;text-align:center;">
+                       <span style="font-size:20px;font-family:'微软雅黑';"><b>@Model.Destination</b></span>
+
+                    </div>
+
+                    <div style="width:100%;height:47px;line-height:46px;text-align:center;">
+                        <span style="font-size:22px;font-family:'微软雅黑';"><b>@Model.Arrtime.ToString("HH:mm")</b></span>
+                    </div>
+
+                    <div style="width:100%;height:46px;line-height:46px;text-align:center;">
+                        <span style="font-size:16px;font-family:'微软雅黑';">@Model.Arrtime.ToString("yyyy年MM月dd日")</span>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="boxbottomdiv">
+                <div style="width:50%;height:139px;float:left;">
+                    <div style="width:100%;height:46px;">
+                        <div style="width:100%;height:24px;text-align:left;"></div>
+                       <span style="font-size:20px;font-family:'微软雅黑';margin-left:18px;line-height:22px;">@Model.Name</span>
+
+                    </div>
+
+                    <div style="width:100%;height:47px;line-height:47px;">
+                        <span style="font-size:14px;font-family:'微软雅黑';color:#333;margin-left:18px;">身份证 @Model.IdCard.Substring(0, 8)*******@Model.IdCard.Substring(12, 3)</span>
+                    </div>
+
+                    <div style="width:100%;height:46px;line-height:26px;color:red;margin-left:18px;">
+                        <span style="font-size:20px;font-family:'微软雅黑';">
+                            @if(Model.Status==1)
+                            {
+                                <b>出票成功</b>
+                            }
+                            else if (Model.Status == 5)
+                            {
+                                <b>等待付款</b>
+                            }
+                            else if (Model.Status == 4)
+                            {
+                                <b>等待出票</b>
+                            }
+                            else
+                            {
+                                <b>已退票</b>
+                            }
+
+                            </span>
+                    </div>
+                </div>
+
+                <div style="width:50%;height:139px;float:left;">
+                    <div style="width:100%;height:46px;">
+                        <div style="width:100%;height:24px;"></div>
+                        <div style="width:100%;height:22px;line-height:22px;text-align:right;">
+                             <span style="font-size:18px;font-family:'微软雅黑';margin-right:18px;">巴士软座￥@Model.Money</span>
+                        </div>
+                    </div>
+
+                    <div style="width:100%;height:47px;line-height:47px;text-align:right;">
+                        <span style="font-size:18px;font-family:'微软雅黑';margin-right:18px;">座位号：@Model.SeatNumber 号</span>
+                    </div>
+
+                    <div style="width:100%;height:46px;">
+                        <div style="margin-right:18px;line-height:26px;float:right;border-radius:5px 5px 5px 5px;border:1px solid #EE9A03;padding:2px 8px 2px 8px;">
+                            <span style="font-size:16px;font-family:'微软雅黑';color:#EE9A03;">@Model.BusType</span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+    <script type="text/javascript" src="~/Content/lib/jquery/1.9.1/jquery.min.js"></script> 
+    <script type="text/javascript" src="~/Content/lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="~/Content/static/h-ui/js/H-ui.min.js"></script> 
+    <script type="text/javascript" src="~/Content/static/h-ui.admin/js/H-ui.admin.js"></script> 
+    <script type="text/javascript" src="~/Content/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="~/Content/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+    <script type="text/javascript" src="~/Content/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+    <script type="text/javascript" src="~/Content/lib/jquery.validation/1.14.0/messages_zh.js"></script> 
+
+    <script type="text/javascript">
+
+        //获取当前日期下的班次信息
+        function getfilghtinfo() {
+            var select = window.document.getElementById("changeflight");
+            $.ajax({
+                type: 'POST',
+                url: '/Ticketinfo/ChangeGetFilght',
+                data: $('#changeform').serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    select.options.length = 0;
+                    if (data == "null") {
+                        select.add(new Option("无法改签", ""));
+                    }
+                    else {
+                        for (var i = 0; i < data.length; i++) {
+                            var temp = data[i].split(",");
+                            select.add(new Option(temp[0], temp[1]));
+                        }
+                    }
+
+                },
+                error: function (data) {
+                    console.log(data.msg);
+                },
+            });
+
+        }
+
+
+
+
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+
+            //日期选择器
+            laydate.render({
+                elem: '#changedate'
+                //,type: 'date' //默认，可不填
+                , min: 0
+                , max: 30
+                , done: function (value, date) {//value, date, endDate点击日期、清空、现在、确定均会触发。回调返回三个参数，分别代表：生成的值、日期时间对象、结束的日期时间对象
+                    getfilghtinfo();
+                }
+            });
+        });
+
+
+
+
+
+
+
+
+        $(function () {
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+
+            $("#changeform").validate({
+                rules: {
+                    changedate: {
+                        required: true,
+
+                    },
+                    changeflight: {
+                        required: true,
+                    },
+
+                },
+                onkeyup: false,
+                focusCleanup: true,
+                success: "valid",
+                submitHandler: function (form) {
+                    $(form).ajaxSubmit({
+                        type: 'post',
+                        url: "/Ticketinfo/ChangeTicket",
+                        success: function (data) {
+                            if (data == 'ok') {
+                                layer.msg('改签成功!', { icon: 1, time: 1000 });
+                                setTimeout(function () {  //使用  setTimeout（）方法设定定时2000毫秒
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    parent.location.reload(); // 父页面刷新
+                                    parent.$('.btn-refresh').click();
+                                    parent.layer.close(index);
+                                }, 1000);
+                            }
+                            else {
+                                layer.msg(data, { icon: 2, time: 1000 });
+                            }
+                        },
+                        error: function (XmlHttpRequest, textStatus, errorThrown) {
+                            layer.msg('error!', { icon: 2, time: 1000 });
+                        }
+                    });
+
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>

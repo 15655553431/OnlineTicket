@@ -1,0 +1,48 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="EF.Utility.CS.ttinclude"#><#@ 
+ output extension=".cs"#>
+
+ <#
+ CodeGenerationTools code = new CodeGenerationTools(this);
+ MetadataLoader loader = new MetadataLoader(this);
+ CodeRegion region = new CodeRegion(this,1);
+ MetadataTools ef = new MetadataTools(this);
+
+const string inputFile = @"..\\Model\\DataModel.edmx";
+
+EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
+string namespaceName = code.VsNamespaceSuggestion();
+
+EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+
+#>
+using IBll;
+using Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace Bll
+{
+
+<#
+foreach(EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e=>e.Name))
+{
+	fileManager.StartNewFile(entity.Name + ".cs");
+   
+#>
+
+	public partial class <#=entity.Name#>Service : BaseService<<#=entity.Name#>>, I<#=entity.Name#>Service
+    {
+        public override void SetCurrentDal()
+        {
+            CurrentDal = this.DbSession.<#=entity.Name#>Dal;
+        }
+    }
+
+<#}#>
+
+}

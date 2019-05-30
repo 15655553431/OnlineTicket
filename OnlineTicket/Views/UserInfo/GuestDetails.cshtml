@@ -1,0 +1,98 @@
+﻿@model Model.UserInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="~/lib/html5shiv.js"></script>
+<script type="text/javascript" src="~/lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>账号详情</title>
+</head>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+        
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">登录账号：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+            @Model.Login
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">真实姓名：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+            @Model.UName
+		</div>
+	</div>
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">身份证号：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+            @Model.IdCard
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">联系方式：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+            @Model.Phone
+		</div>
+	</div>
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">地址信息：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+            @Model.Address
+		</div>
+	</div>
+
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">注册时间：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+            @Model.SignDate
+		</div>
+	</div>
+
+    <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">最近登陆：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+            @Model.LoginDate
+		</div>
+	</div>
+
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">备注信息：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			@Model.Other
+			
+		</div>
+	</div>
+	
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去--> 
+<script type="text/javascript" src="~/Content/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="~/Content/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="~/Content/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="~/Content/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

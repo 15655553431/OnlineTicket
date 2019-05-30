@@ -1,0 +1,203 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="~/lib/html5shiv.js"></script>
+<script type="text/javascript" src="~/lib/respond.min.js"></script>
+<![endif]-->
+    <link href="~/Content/lib/layui/css/layui.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="~/Content/static/h-ui.admin/css/style.css" />
+    
+<link href="~/Content/myjscss/MyStyle.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="~/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>售票系统</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 窗口服务 <span class="c-gray en">&gt;</span> 售票系统 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <div class="text-c" style="margin-bottom:15px"> 
+        <form id="searchform">
+            <input type="hidden" value="1" id="PageIndex" name="PageIndex">
+            <input type="hidden" value="5" id="PageSize" name="PageSize">
+            <input type="text" class="input-text" style="width:15%" placeholder="最早乘车时间" id="dtstart" name="dtstart" value="2018-01-01">
+		    <input type="text" class="input-text" style="width:12%" placeholder="起始站查询" id="Origin" name="Origin" value="">
+            <input type="text" class="input-text" style="width:12%" placeholder="终点站查询" id="Destination" name="Destination" value="">
+		    <input type="text" class="input-text" style="width:10%" placeholder="班车号查询" id="Number" name="Number" value="">
+		    <a class="btn btn-success radius" href='javascript:$("#PageIndex").val(1);pageajax();'><i class="Hui-iconfont">&#xe665;</i> 搜余票</a>
+        </form>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray">
+         
+        <span class="r">共有班车：<strong id="listcount">0</strong> 辆</span> 
+
+	</div>
+	<table class="table table-border table-bordered table-hover table-bg">
+		<thead>
+			<tr>
+				<th scope="col" colspan="8">窗口订票
+                    <span style="font-size:10px;margin-left:20px;">每页显示：</span>
+                    <select id="pageSizeSelect" onchange="$('#PageIndex').val(1);$('#PageSize').val(this.value);pageajax();">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+				</th>
+                
+			</tr>
+			<tr class="text-c">
+                <th width="100">发车时间</th>
+                <th width="80">历时(min)</th>
+                <th width="90">班车编号</th>
+                <th width="100">起始站</th>
+				<th width="100">终点站</th>
+                <th width="60">票价</th>
+                <th width="60">余票</th>
+				<th width="70">购票</th>
+			</tr>
+		</thead>
+		<tbody id="pagetbody">
+
+		</tbody>
+	</table>
+    <div style="margin-top:10px;">
+        <ul class="page"  id="MyPage"></ul>
+    </div>
+    
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="~/Content/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="~/Content/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="~/Content/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="~/Content/static/h-ui.admin/js/H-ui.admin.js"></script> 
+    <script src="~/Content/lib/layui/layui.js"></script>
+    <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="~/Content/myjscss/MyJs.js"></script>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        var now = new Date();
+        var def = new Date(now.getTime() + 3700000);
+        //日期时间选择器
+        laydate.render({
+            elem: '#dtstart'
+          , type: 'date'
+            , min: 0 //7天前
+            , max: 30 //7天后
+            , value: def
+            
+        });
+
+    });
+    
+
+    //每页数量，当前页
+    function pageajax() {
+        var tbody = window.document.getElementById("pagetbody");
+        var sumdata = window.document.getElementById("listcount");
+        var nowindex = window.document.getElementById("PageIndex");
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/Ticketinfo/ShowTicket",//url
+            data: $('#searchform').serialize(),
+            success: function (data) {
+                var str = "";
+                var flightinfolist = data.Item1;
+
+                for (var i = 0; i < flightinfolist.length; i++) {
+
+                    var gotime = Num2Date(flightinfolist[i].GoTime, 'yyyy-MM-dd hh:mm:ss');
+                    str += "<tr class='text-c'>";
+                    str += "<td>" + gotime + "</td>";
+                    str += "<td>" + flightinfolist[i].OverTime + "分钟</td>";
+                    str += "<td><a onclick=\"admin_role_edit('" + flightinfolist[i].Number + "班车详情','/FlightInfo/Details','" + flightinfolist[i].ID + "')\"  >" + flightinfolist[i].Number + "</a></td>";
+
+                    str += "<td>" + flightinfolist[i].PathInfo.Origin + "</td>";
+                    str += "<td>" + flightinfolist[i].PathInfo.Destination + "</td>";
+                    str += "<td>" + flightinfolist[i].Price + "元</td>";
+                    str += "<td>" + flightinfolist[i].Passengers + "</td>";
+
+                    str += "<td class='td-manage'>";
+                    if (flightinfolist[i].Passengers > 0) {
+                        str += "<a style='text-decoration:none' class='label label-success radius' onClick=\"sellTicket('" + flightinfolist[i].ID + "','" + gotime + "')\">立即购票</a>";
+                    }
+                    else {
+                        str += "<a style='text-decoration:none' class='label radius'>暂无余票</a>";
+                    }
+
+                    str += "</td>";
+                    str += "</tr>";
+                }
+                tbody.innerHTML = str;
+                sumdata.innerText = data.Item2.TotalItems;
+                nowindex.value = data.Item2.PageIndex;
+                initMypage(data.Item2.TotalItems, data.Item2.PageIndex, data.Item2.PageSize);
+
+            },
+            error: function (data) {
+               
+            }
+
+        });
+
+    }
+
+
+    var GG = {
+        "kk": function (pageindex) {
+            var indexkey = $('#PageIndex');
+            var nowindex = indexkey.val();
+            if (nowindex != pageindex) {
+                indexkey.val(pageindex);
+                pageajax();
+            }
+        }
+    }
+
+
+    function initMypage(count, current, pagecount) {
+        //总数量，当前显示页，每页显示数，输出当前页函数
+        $("#MyPage").initPage(count, current, pagecount, GG.kk);
+    }
+
+    $(function () {
+
+        pageajax();
+    });
+
+
+    function sellTicket(id, datetime) {
+        var url = "/Ticketinfo/SellTicket?id=" + id + "&dt=" + datetime;
+        layer_show("请输入乘客信息...", url, 600, 280);
+    }
+
+
+
+    /*管理员-角色-编辑*/
+    function admin_role_edit(title, url, id, w, h) {
+        layer_show(title, url + "/" + id, w, h);
+    }
+    
+</script>
+</body>
+</html>

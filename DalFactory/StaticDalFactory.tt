@@ -1,0 +1,48 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="EF.Utility.CS.ttinclude"#><#@ 
+ output extension=".cs"#>
+
+ <#
+ CodeGenerationTools code = new CodeGenerationTools(this);
+ MetadataLoader loader = new MetadataLoader(this);
+ CodeRegion region = new CodeRegion(this,1);
+ MetadataTools ef = new MetadataTools(this);
+
+const string inputFile = @"..\\Model\\DataModel.edmx";
+
+EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
+string namespaceName = code.VsNamespaceSuggestion();
+
+EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+
+#>
+using IDal;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DalFactory
+{
+    public class StaticDalFactory
+    {
+		public static string assemblyName = System.Configuration.ConfigurationManager.AppSettings["DalAssemblyName"];
+<#
+foreach(EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e=>e.Name))
+{
+	fileManager.StartNewFile(entity.Name + ".cs");
+   
+#>
+		public static I<#=entity.Name#>Dal Get<#=entity.Name#>Dal()
+        {
+            return Assembly.Load(assemblyName).CreateInstance(assemblyName+".<#=entity.Name#>Dal") as I<#=entity.Name#>Dal;
+        }
+	
+
+<#}#>
+	}
+}
+
+

@@ -1,0 +1,170 @@
+﻿@model Model.Ticketinfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TicketDetails</title>
+
+    <style>
+
+
+    .backdiv {
+        width:100%;
+        height:300px;
+       
+    }
+    .boxdiv {
+        -webkit-box-shadow: #666 0px 0px 10px; 
+        -moz-box-shadow: #666 0px 0px 10px; 
+        box-shadow: #666 0px 0px 10px; 
+        margin:20px auto;
+        width:80%;
+        height:280px;
+        border-radius:16px 16px 16px 16px;
+    }
+    .boxtopdiv {
+        width:100%;
+        height:141px;
+        background-color:#FDE38E;
+        border-radius:16px 16px 0px 0px;
+        border-bottom:2px dashed #fff;
+    }
+    .boxbottomdiv {
+        width:100%;
+        height:139px;
+        background-color:#FFFFFF;
+        border-radius:0px 0px 16px 16px;
+    }
+
+
+</style>
+   
+</head>
+<body style="background-color:#F2F3F4;">
+   
+    <div class="backdiv">
+        <div class="boxdiv">
+            <div class="boxtopdiv">
+
+                <div style="width:33.3%;height:139px;float:left;">
+                    <div style="width:100%;height:46px;line-height:46px;text-align:center;">
+                       <span style="font-size:20px;font-family:'微软雅黑';"><b>@Model.Origin</b></span>
+
+                    </div>
+
+                    <div style="width:100%;height:47px;line-height:47px;text-align:center;">
+                        <span style="font-size:22px;font-family:'微软雅黑';"><b>@Model.Gotime.ToString("HH:mm") </b></span>
+                    </div>
+
+                    <div style="width:100%;height:46px;line-height:46px;text-align:center;">
+                        <span style="font-size:16px;font-family:'微软雅黑';">@Model.Gotime.ToString("yyyy年MM月dd日")</span>
+                    </div>
+
+                </div>
+
+                <div style="width:33.3%;height:139px;float:left;">
+                    <div style="width:100%;height:57px;">
+                        <div style="width:100%;height:40px;"></div>
+                       <div style="width:100%;font-size:17px;font-family:'微软雅黑';line-height:17px;text-align:center;">@Model.Number</div>
+
+                    </div>
+
+                    <div style="width:100%;height:25px;line-height:25px;text-align:center;">
+                        <span style="font-size:22px;font-family:'微软雅黑';">——></span>
+                    </div>
+
+                    <div style="width:100%;height:20px;line-height:20px;text-align:center;">
+                        <span style="font-size:16px;font-family:'微软雅黑';">@Model.Overtime 分钟</span>
+                    </div>
+                </div>
+
+                <div style="width:33.3%;height:139px;float:right;">
+                    <div style="width:100%;height:46px;line-height:46px;text-align:center;">
+                       <span style="font-size:20px;font-family:'微软雅黑';"><b>@Model.Destination</b></span>
+
+                    </div>
+
+                    <div style="width:100%;height:47px;line-height:46px;text-align:center;">
+                        <span style="font-size:22px;font-family:'微软雅黑';"><b>@Model.Arrtime.ToString("HH:mm")</b></span>
+                    </div>
+
+                    <div style="width:100%;height:46px;line-height:46px;text-align:center;">
+                        <span style="font-size:16px;font-family:'微软雅黑';">@Model.Arrtime.ToString("yyyy年MM月dd日")</span>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="boxbottomdiv">
+                <div style="width:50%;height:139px;float:left;">
+                    <div style="width:100%;height:46px;">
+                        <div style="width:100%;height:24px;text-align:left;"></div>
+                       <span style="font-size:20px;font-family:'微软雅黑';margin-left:18px;line-height:22px;">@Model.Name</span>
+
+                    </div>
+
+                    <div style="width:100%;height:47px;line-height:47px;">
+                        <span style="font-size:14px;font-family:'微软雅黑';color:#333;margin-left:18px;">身份证 @Model.IdCard.Substring(0, 8)*******@Model.IdCard.Substring(12, 3)</span>
+                    </div>
+
+                    <div style="width:100%;height:46px;line-height:26px;color:red;margin-left:18px;">
+                        <span style="font-size:20px;font-family:'微软雅黑';">
+                            @if(Model.Status==1)
+                            {
+                                <b>出票成功</b>
+                            }
+                            else if (Model.Status == 5)
+                            {
+                                <b>等待付款</b>
+                            }
+                            else if (Model.Status == 4)
+                            {
+                                <b>等待出票</b>
+                            }
+                            else
+                            {
+                                <b>已退票</b>
+                            }
+
+                            </span>
+                    </div>
+                </div>
+
+                <div style="width:50%;height:139px;float:left;">
+                    <div style="width:100%;height:46px;">
+                        <div style="width:100%;height:24px;"></div>
+                        <div style="width:100%;height:22px;line-height:22px;text-align:right;">
+                             <span style="font-size:18px;font-family:'微软雅黑';margin-right:18px;">巴士软座￥@Model.Money</span>
+                        </div>
+                    </div>
+
+                    <div style="width:100%;height:47px;line-height:47px;text-align:right;">
+                        <span style="font-size:18px;font-family:'微软雅黑';margin-right:18px;">座位号：@Model.SeatNumber 号</span>
+                    </div>
+
+                    <div style="width:100%;height:46px;">
+                        <div style="margin-right:18px;line-height:26px;float:right;border-radius:5px 5px 5px 5px;border:1px solid #EE9A03;padding:2px 8px 2px 8px;">
+                            <span style="font-size:16px;font-family:'微软雅黑';color:#EE9A03;">@Model.BusType</span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            
+        </div>
+
+    </div>
+
+
+</body>
+</html>
